@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sensorci"
+version = "0.1.0"
+description = "SensorCI: Algebraically-Equivariant Contextual Integrity Benchmark for Industrial Sensor Privacy"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "Anonymous"}]
+
+dependencies = [
+    # Core
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "pandas>=2.2",
+    "pyyaml>=6.0",
+    "tqdm>=4.66",
+    "python-dotenv>=1.0",
+    # LLM SDKs
+    "openai>=1.40",
+    "anthropic>=0.34",
+    "google-genai>=0.3",       # Gemini SDK; if unavailable, use REST via requests
+    "requests>=2.31",
+    # Data
+    "datasets>=2.18",          # HuggingFace datasets
+    "scikit-learn>=1.4",
+    # GPU neural attacks (A1, A3, A4, A7) and D4/D11/D12 training
+    "torch>=2.5",
+    "opacus>=1.5",             # D4 DP-SGD autoencoder
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4",
+    "pytest-cov>=4.1",
+    "ruff>=0.5",
+    "mypy>=1.10",
+]
+heavy = [
+    "torch>=2.5",
+    "opacus>=1.5",
+]
+
+[tool.setuptools]
+packages = ["sensorci"]
+
+[tool.setuptools.package-dir]
+sensorci = "sensorci"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+addopts = "-v --tb=short"

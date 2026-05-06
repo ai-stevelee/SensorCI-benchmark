@@ -1,0 +1,30 @@
+# Pilot run configuration for TEP × {D1 raw, D5 affine} × {A0 frontier, A6 algebra}.
+# Used as default by scripts/10_pilot_a0.py and 11_pilot_algebra.py if --config provided.
+
+run_name: pilot_tep_v1
+dataset: tep
+dataset_args:
+  mode: synthetic
+  n_simulations: 12
+  segments_per_sim: 8
+  segment_length: 256
+
+defenses:
+  - d1_raw
+  - d5_affine
+
+attacks:
+  - name: a0_frontier
+    args:
+      # Use cheap variants for pilot; switch to gpt-5-pro / claude-opus-4-7 / gemini-3-pro for real run
+      models: [gpt-4o-mini, claude-haiku-4-5, gemini-3-flash]
+      encodings: [raw_stats]
+      max_workers: 16
+  - name: a6_algebra
+    args:
+      n_stub_queries: 20
+
+n_samples_per_cell: 20
+seeds: [42]
+
+output_dir: ./results

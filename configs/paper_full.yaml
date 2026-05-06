@@ -1,0 +1,66 @@
+# SensorCI paper-quality full evaluation config.
+#
+# This config invokes:
+#   - persona-stratified train/val/test splits
+#   - hyperparameter sweeps where supported (A2)
+#   - neural attacks (A1 ResNet-1D + transformer, A3 1D-UNet, A4-CI Siamese)
+#     IF torch is installed; auto-fallback to sklearn stand-ins otherwise.
+#   - LiRA-TS A7 with 8 shadow models
+#
+# Usage:
+#   python scripts/30_main_evaluation.py --config configs/paper_full.yaml
+
+run_name: paper_full_v1
+
+# Datasets: all 7 + (optionally) cwru control via separate script
+datasets:
+  - tep
+  - paderborn
+  - cmapss
+  - lbnl_fdd
+  - ampds2
+  - pamap2
+  - mitbih
+
+# Defenses: 12 baselines spanning 4 paradigms
+defenses:
+  - d1_raw
+  - d2_gaussian_dp
+  - d3_laplace_dp
+  - d4_dp_ae
+  - d5_affine
+  - d6_per_seg_affine
+  - d7_ope
+  - d8_doppelganger
+  - d9_kanon
+  - d10_fe_ip
+  - d11_vfae
+  - d12_ib
+
+# Attacks: A0 frontier-LLM + A1-A7 (A0 incurs API cost)
+# Comment out a0_frontier to skip API costs entirely.
+attacks:
+  - a0_frontier        # ★ headline; requires LLM API ($)
+  - a1_distinguish     # neural ResNet-1D + transformer (torch) or boost (fallback)
+  - a2_linear_recon    # ridge with alpha sweep on val
+  - a3_neural_recon    # 1D-UNet (torch) or kernel ridge (fallback)
+  - a4_ci_linkage      # Siamese SimCLR (torch) or RF (fallback) — per role
+  - a5_stat_tests      # MMD + KS + Wasserstein
+  - a6_algebra         # cured query bank
+  - a7_mia_ts          # LiRA-TS shadow models
+
+# 4-tier protocol
+tiers:
+  - T1   # single-segment
+  - T2   # cross-segment AUC vs N
+  - T3   # multi-recipient + collusion
+  - T4   # longitudinal accumulation
+
+# Multi-seed for bootstrap CIs
+seeds: [42, 1, 2, 3, 4]
+
+# Per-cell sample count (paper recommends >= 50)
+n_samples: 50
+
+# Output
+output_dir: ./results/paper_full
