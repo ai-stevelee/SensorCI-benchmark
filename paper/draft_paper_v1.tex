@@ -17,8 +17,11 @@
 \documentclass{article}
 
 % --- NeurIPS 2026 official style (active) ---
-% Submission (double-blind): no option   |   Camera-ready: [final]   |   Preprint: [preprint]
-\usepackage{neurips_2026}
+% [eandd] = Evaluations & Datasets track (required by chairs).
+% For non-anonymous submissions, do NOT add [nonanonymous] here;
+% select single-blind on the OpenReview submission form instead.
+% Camera-ready: add [final].   Preprint: [preprint].
+\usepackage[eandd]{neurips_2026}
 
 % --- Fallback (inactive; uncomment if neurips_2026.sty unavailable) ---
 % \usepackage[letterpaper, margin=1in]{geometry}
@@ -1232,7 +1235,7 @@ The NeurIPS Paper Checklist is required for submissions; it does not count towar
 \item {\bf Open access to data and code}
 \item[] Question: Does the paper provide open access to the data and code, with sufficient instructions to faithfully reproduce the main experimental results?
 \item[] Answer: \textbf{[Yes]}
-\item[] Justification: All curation artefacts (persona schema, sharing matrices, query banks, audit logs, evaluation jsonl), implementation library, and reproduction scripts are released at \url{https://anonymous.4open.science/r/SensorCI-anon} under MIT (curation) plus original upstream licenses (raw signals, see Sec.~\ref{app:compute} note and the License Agreements section). Supplementary~\S\ref{app:compute} provides three replication tiers ($\$0$ T1-only / $\$0$ T1--T4 / $\$100$--$\$150$ full + $A_0$). A Croissant metadata file with RAI fields is included.
+\item[] Justification: All curation artefacts (persona schema, sharing matrices, query banks, audit logs, evaluation jsonl), implementation library, and reproduction scripts are released at \url{https://anonymous.4open.science/r/SensorCI-anon} under MIT (curation) plus original upstream licenses (raw signals, see Sec.~\ref{app:compute} note and the License Agreements section). Supplementary~\S\ref{app:compute} provides three replication tiers ($\$0$ T1-only / $\$0$ T1--T4 / $\$100$--$\$150$ full + $A_0$).
 
 \item {\bf Experimental setting/details}
 \item[] Question: Does the paper specify all the training and test details necessary to understand the results?
@@ -1272,7 +1275,7 @@ The NeurIPS Paper Checklist is required for submissions; it does not count towar
 \item {\bf New assets}
 \item[] Question: Are new assets introduced in the paper well documented and is the documentation provided alongside the assets?
 \item[] Answer: \textbf{[Yes]}
-\item[] Justification: Released new assets are: (i) persona-level schema files, (ii) 750 role-attribute sharing labels ($\Phi_D$), (iii) 250 algebraic queries (5 datasets $\times$ 50/each), (iv) per-item LLM-judge audit logs, (v) 3{,}257-row evaluation jsonl, (vi) configs/hp\_table.yaml with the validation-selected hyperparameters per cell. A Croissant metadata file with RAI fields documents schema, license, intended use, limitations, and dual-use considerations. Inline documentation is provided in Sec.~\ref{sec:datasets} (schema), Sec.~\ref{sec:judge} (curation protocol), and Sec.~\ref{sec:defenses} (evaluation).
+\item[] Justification: Released new assets are: (i) persona-level schema files, (ii) 750 role-attribute sharing labels ($\Phi_D$), (iii) 250 algebraic queries (5 datasets $\times$ 50/each), (iv) per-item LLM-judge audit logs, (v) 3{,}257-row evaluation jsonl, (vi) configs/hp\_table.yaml with the validation-selected hyperparameters per cell. The released artefact bundles inline schema documentation, license terms, intended-use notes, and dual-use considerations alongside the data. Inline documentation is provided in Sec.~\ref{sec:datasets} (schema), Sec.~\ref{sec:judge} (curation protocol), and Sec.~\ref{sec:defenses} (evaluation).
 
 \item {\bf Crowdsourcing and research with human subjects}
 \item[] Question: For crowdsourcing experiments and research with human subjects, does the paper include the full text of instructions given to participants and screenshots, if applicable, as well as details about compensation?
